@@ -27,8 +27,13 @@ public class Hooks {
         driver.get("https://patinformed.wipo.int/");  
     }
 
-	/*
-	 * @After public void tearDown() { if (driver != null) { driver.quit(); // Close
-	 * the browser after the test } }
-	 */
+	
+	  @After 
+	  public void tearDown() 
+	  { 
+		  if (driver != null) { 
+			  driver.quit(); 
+
+		  } }
+	 
 }

@@ -40,24 +40,27 @@ public class DynamicPatentPage {
         searchBtn.click();
         
         //Accept Terms and Conditions Button
-
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
         try {
-        	wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("loader")));
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("loader")));
             System.out.println("Loader disappeared, now looking for the dialog.");
             
-            wait.until(ExpectedConditions.visibilityOfElementLocated(termsAndConditionsButton));
-        } catch (Exception e) {
-            System.out.println("Dialog was not visible in the expected time.");
-        }
-        
-        try {
+            //Wait for the dialog itself to be visible
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("modalsHomepage")));
+
             WebElement termsAndConditionsBtn = wait.until(ExpectedConditions.elementToBeClickable(termsAndConditionsButton));
+            System.out.println("Button Displayed: " + termsAndConditionsBtn.isDisplayed());
+            System.out.println("Button Enabled: " + termsAndConditionsBtn.isEnabled());
+
             termsAndConditionsBtn.click();  
+
         } catch (Exception e) {
-            System.out.println("Button was not clickable within the expected time.");
+            System.out.println("Terms and Conditions button was not clickable within the expected time.");
+            e.printStackTrace();
         }
 
+        // Proceeding to select patent option
         WebElement patentElement = driver.findElement(dynamicPatentOption);
         String patentName = patentElement.getText();
         System.out.println("Selected Patent Name is : " + patentName);
@@ -144,12 +147,15 @@ public class DynamicPatentPage {
                 if (filingDate != null && publicationDate != null) {
                     long days = ChronoUnit.DAYS.between(filingDate, publicationDate);
                     System.out.println("Patent " + (i + 1) + " - Filing to Publication: " + days + " days");
+                    break;
                 } else if (filingDate != null && grantDate != null) {
                     long days = ChronoUnit.DAYS.between(filingDate, grantDate);
                     System.out.println("Patent " + (i + 1) + " - Filing to Grant: " + days + " days");
+                    
                 } else if (publicationDate != null && grantDate != null) {
                     long days = ChronoUnit.DAYS.between(publicationDate, grantDate);
                     System.out.println("Patent " + (i + 1) + " - Publication to Grant: " + days + " days");
+                    
                 } else {
                     System.out.println("Patent " + (i + 1) + " - No valid date pairs found for calculation.");
                 }
