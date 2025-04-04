@@ -36,11 +36,13 @@ public class DynamicPatentPage {
 
     // Click on Search Button & Select First Patent
     public void clickOnDynamicPatent() {
-        WebElement searchBtn = driver.findElement(searchButton); 
-        searchBtn.click();
+    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    	WebElement searchBtn = wait.until(ExpectedConditions.elementToBeClickable(searchButton));
+    	searchBtn.click();
+
         
         //Accept Terms and Conditions Button
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        //WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         try {
             wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("loader")));
