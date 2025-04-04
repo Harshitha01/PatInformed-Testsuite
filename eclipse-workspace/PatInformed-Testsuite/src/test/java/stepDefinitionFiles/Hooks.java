@@ -16,10 +16,10 @@ public class Hooks {
     @Before
     public void setUp() {
         // Set up ChromeOptions to run in Incognito mode
-        //ChromeOptions options = new ChromeOptions();
-        //options.addArguments("--incognito");  
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--incognito");  
 
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(options);
 
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
