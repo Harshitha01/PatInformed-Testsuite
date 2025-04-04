@@ -41,8 +41,7 @@ public class DynamicPatentPage {
     	searchBtn.click();
 
         
-        //Accept Terms and Conditions Button
-        //WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        
 
         try {
             wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("loader")));
@@ -148,22 +147,22 @@ public class DynamicPatentPage {
                 // Print only one statement based on priority
                 if (filingDate != null && publicationDate != null) {
                     long days = ChronoUnit.DAYS.between(filingDate, publicationDate);
-                    System.out.println("Patent " + (i + 1) + " - Filing to Publication: " + days + " days");
+                    System.out.println("Number of Days between Filing date to Publication date for Patent " + (i + 1) + " is : " + days + " days");
                     break;
                 } else if (filingDate != null && grantDate != null) {
                     long days = ChronoUnit.DAYS.between(filingDate, grantDate);
-                    System.out.println("Patent " + (i + 1) + " - Filing to Grant: " + days + " days");
+                    System.out.println("Number of Days between Filing date to Grant date for Patent " + (i + 1) + " is : " + days + " days");
                     
                 } else if (publicationDate != null && grantDate != null) {
                     long days = ChronoUnit.DAYS.between(publicationDate, grantDate);
-                    System.out.println("Patent " + (i + 1) + " - Publication to Grant: " + days + " days");
+                    System.out.println("Number of Days between Grant date to Publication date for Patent " + (i + 1) + " is : " + days + " days");
                     
                 } else {
-                    System.out.println("Patent " + (i + 1) + " - No valid date pairs found for calculation.");
+                    System.out.println("For Patent " + (i + 1) + " - No valid date pairs found for calculation.");
                 }
 
             } catch (Exception e) {
-                System.out.println("Error processing patent " + (i + 1) + ": " + e.getMessage());
+                System.out.println("Error processing patent " + (i + 1) + " : " + e.getMessage());
                 e.printStackTrace(); // To capture the exact exception
             }
         }
